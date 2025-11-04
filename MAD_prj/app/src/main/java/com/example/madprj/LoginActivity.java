@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignInObj = findViewById(R.id.btnSignIn);
         tvSignupobj = findViewById(R.id.tvSignup);
         tvSignupobj.setOnClickListener(v->{
-            Intent i = new Intent(this, SignupActivity.class);
+            Intent i = new Intent(this,SignupStep1Activity.class);
             startActivity(i);
         });
 

@@ -229,6 +229,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter meal"
                     />
+
+
                 <Button
                     android:id="@+id/btn_cal_calories_ai"
                     android:layout_width="match_parent"
