@@ -126,21 +126,22 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 editor.apply();
 
                 // ✅ Show data on screen
-                runOnUiThread(() -> showemailobj.setText(
-                        "👤 Name: " + name +
-                                "\n📧 Email: " + email +
-                                "\n🎂 Age: " + age +
-                                "\n⚖️ Weight: " + weight +
-                                "\n📏 Height: " + height +
-                                "\n🚻 Gender: " + gender +
-                                "\n🔥 Daily Cal: " + dailyCal +
-                                "\n💤 Sleep: " + sleep +
-                                "\n💧 Water: " + water +
-                                "\n👣 Steps: " + steps +
-                                "\n🩸 Blood Type: " + bloodType +
-                                "\n🤧 Allergies: " + allergies +
-                                "\n🏥 Medical Condition: " + medicalCondition
-                ));
+                runOnUiThread(() -> {
+                    shownameobj.setText(name);
+                    showemailobj.setText(email);
+                    showageobj.setText(String.valueOf(age));
+                    showweightobj.setText(String.valueOf(weight));
+                    showgenderobj.setText(gender);
+                    showheightobj.setText(String.valueOf(height));
+                    showcalobj.setText(String.valueOf(dailyCal));
+                    showsleepobj.setText(String.valueOf(sleep));
+                    showwaterobj.setText(String.valueOf(water));
+                    showstepsobj.setText(String.valueOf(steps));
+                    showbloodobj.setText(bloodType);
+                    showallergiesobj.setText(allergies);
+                    showmedicalconditionobj.setText(medicalCondition);
+
+                });
             } else {
                 runOnUiThread(() -> showemailobj.setText("User not found"));
             }
