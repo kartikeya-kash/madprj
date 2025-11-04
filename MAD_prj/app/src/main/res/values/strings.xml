@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MADPRJ</string>
+    <string-array name="weight_units">
+        <item>grams</item>
+        <item>ml</item>
+        <item>pieces</item>
+        <item>servings</item>
+    </string-array>
 </resources>

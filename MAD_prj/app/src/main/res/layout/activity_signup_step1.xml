@@ -103,6 +103,20 @@
                 app:backgroundTint="@null"
                 android:elevation="4dp" />
 
+            <Button
+                android:id="@+id/gotologin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Already Have Account?"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:layout_marginTop="10dp"
+                android:elevation="4dp" />
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
