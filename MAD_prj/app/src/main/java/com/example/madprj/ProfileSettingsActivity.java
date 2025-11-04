@@ -108,6 +108,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 bloodType = user.optString("MI_BloodType", "");
                 allergies = user.optString("MI_Allergies", "");
                 medicalCondition = user.optString("MI_MedicalCondition", "");
+                double BMI = weight / ((height / 100) * (height / 100));
+
 
                 // ✅ Save data locally for other activities
                 SharedPreferences.Editor editor = getSharedPreferences("userdata", MODE_PRIVATE).edit();
@@ -129,6 +131,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     shownameobj.setText(name);
                     showemailobj.setText(email);
+                    showbmiobj.setText(String.format("%.2f", BMI));
+
                     showageobj.setText(String.valueOf(age));
                     showweightobj.setText(String.valueOf(weight));
                     showgenderobj.setText(gender);
