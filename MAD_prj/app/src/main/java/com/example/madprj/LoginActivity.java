@@ -2,13 +2,18 @@ package com.example.madprj;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,47 +25,75 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
         etEmailObj = findViewById(R.id.etEmail);
         etPasswordObj = findViewById(R.id.etPassword);
         btnSignInObj = findViewById(R.id.btnSignIn);
-        btnSignInObj.setOnClickListener(v->signin());
 
-        Button btnSkip = findViewById(R.id.btnSkip);
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, HealthDashboardActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
+        btnSignInObj.setOnClickListener(v -> signin());
     }
 
     public void signin() {
         String email = etEmailObj.getText().toString().trim();
         String password = etPasswordObj.getText().toString().trim();
 
-        // Email regex pattern
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
-        // Validate email
-        if (!email.matches(emailPattern)) {
-            etEmailObj.setError("Invalid email address");
-            etEmailObj.requestFocus();
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Enter all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate password (example: at least 6 chars)
-        if (password.isEmpty() || password.length() < 6) {
-            etPasswordObj.setError("Password must be at least 6 characters");
-            etPasswordObj.requestFocus();
-            return;
-        }
-        // If both valid
-        Toast.makeText(this, "Validation Passed ✅", Toast.LENGTH_SHORT).show();
+        new Thread(() -> {
+            try {
+                // Emulator -> Localhost = 10.0.2.2
+                URL url = new URL("http://10.0.2.2:3000/login");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
 
+                // ✅ Correct headers
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
 
+                // ✅ Create JSON body
+                JSONObject json = new JSONObject();
+                json.put("email", email);
+                json.put("password", password);
+
+                // Debug log (visible in Logcat)
+                System.out.println("Sending JSON: " + json.toString());
+
+                // ✅ Send data
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(json.toString().getBytes("UTF-8"));
+                    os.flush();
+                }
+
+                // ✅ Read response
+                Scanner sc = new Scanner(conn.getInputStream());
+                StringBuilder response = new StringBuilder();
+                while (sc.hasNext()) {
+                    response.append(sc.nextLine());
+                }
+                sc.close();
+
+                JSONObject res = new JSONObject(response.toString());
+                boolean success = res.getBoolean("success");
+                String message = res.getString("message");
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, HealthDashboardActivity.class);
+                    startActivity(intent);
+                });
+
+                conn.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+            }
+        }).start();
     }
 }
