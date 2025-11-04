@@ -121,15 +121,22 @@
                 android:stateListAnimator="@null" />
 
             <!-- Sign up -->
+
+
             <Button
                 android:id="@+id/tvSignup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Don't have an account? Sign up"
-                android:textAlignment="center"
+                android:background="@android:color/transparent"
                 android:textColor="#000000"
-                android:textSize="15sp"
-                android:layout_marginBottom="4dp" />
+                android:drawableStart="@drawable/ic_shield"
+                android:drawableTint="#000000"
+                android:drawablePadding="8dp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="20dp"
+                android:elevation="0dp"
+                android:stateListAnimator="@null" />
 
         </LinearLayout>
 

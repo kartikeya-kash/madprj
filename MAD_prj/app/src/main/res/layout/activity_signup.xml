@@ -206,14 +206,22 @@
                 android:layout_marginBottom="16dp" />
 
             <!-- Already have an account -->
-            <TextView
+
+            <Button
                 android:id="@+id/tvLogin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Already have an account? Login in"
-                android:textAlignment="center"
+                android:background="@android:color/transparent"
                 android:textColor="#000000"
-                android:textSize="15sp" />
+                android:drawableStart="@drawable/ic_shield"
+                android:drawableTint="#000000"
+                android:drawablePadding="8dp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="20dp"
+                android:elevation="0dp"
+                android:stateListAnimator="@null" />
+
         </LinearLayout>
 
     </LinearLayout>
