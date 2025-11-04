@@ -10,6 +10,13 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 public class SignupStep4Activity extends AppCompatActivity {
 
     private Button btnNextObj;
@@ -33,7 +40,6 @@ public class SignupStep4Activity extends AppCompatActivity {
             String allergies = etAllergiesObj.getText().toString().trim();
             String condition = etConditionObj.getText().toString().trim();
 
-            // 🔹 Validation
             if (bloodType.isEmpty()) {
                 Toast.makeText(this, "Please enter your blood type", Toast.LENGTH_SHORT).show();
                 return;
@@ -47,9 +53,7 @@ public class SignupStep4Activity extends AppCompatActivity {
             editor.putString("medical_condition", condition);
             editor.apply();
 
-            Toast.makeText(this, "All details saved successfully!", Toast.LENGTH_SHORT).show();
-
-            // 🔹 (Optional) Retrieve all data for checking/logging
+            // 🔹 Retrieve all stored signup data
             String name = usersignupdata.getString("name", "");
             String email = usersignupdata.getString("email", "");
             String password = usersignupdata.getString("password", "");
@@ -62,16 +66,51 @@ public class SignupStep4Activity extends AppCompatActivity {
             String sleep = usersignupdata.getString("sleep_goal", "");
             String steps = usersignupdata.getString("steps_goal", "");
 
-            
+            // 🔹 Prepare data for API
+            try {
+                JSONObject userData = new JSONObject();
+                userData.put("name", name);
+                userData.put("email", email);
+                userData.put("password", password);
+                userData.put("age", age);
+                userData.put("weight", weight);
+                userData.put("gender", gender);
+                userData.put("height", height);
+                userData.put("HG_DailyCal", calories);
+                userData.put("HG_Sleep", sleep);
+                userData.put("HG_Water", water);
+                userData.put("HG_Steps", steps);
+                userData.put("MI_BloodType", bloodType);
+                userData.put("MI_Allergies", allergies);
+                userData.put("MI_MedicalCondition", condition);
 
-
-            // ✅ You can log or send these to server/db if needed
-            // Log.d("SignupData", name + " " + email + " " + gender + " " + weight + ...);
-
-            // 🔹 Go to Dashboard
-            Intent i = new Intent(this, HealthDashboardActivity.class);
-            startActivity(i);
-            finish(); // optional: closes signup steps
+                sendSignupDataToServer(userData);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error preparing signup data", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
+
+    // 🔹 Function to send data to Node.js backend
+    private void sendSignupDataToServer(JSONObject userData) {
+        String url = "http://10.0.2.2:3000/signup"; // ⚠️ Replace with your system IP
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, url, userData,
+                response -> {
+                    Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, HealthDashboardActivity.class));
+                    finish();
+                },
+                error -> {
+                    Toast.makeText(this, "Signup Failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    error.printStackTrace();
+                }
+        );
+
+        queue.add(request);
     }
 }

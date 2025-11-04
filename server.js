@@ -52,4 +52,78 @@ app.get("/getUserData", (req, res) => {
   });
 });
 
+app.post("/signup", (req, res) => {
+  console.log("Signup request received:", req.body);
+
+  const {
+    name,
+    email,
+    password,
+    age,
+    weight,
+    gender,
+    height,
+    HG_DailyCal,
+    HG_Sleep,
+    HG_Water,
+    HG_Steps,
+    MI_BloodType,
+    MI_Allergies,
+    MI_MedicalCondition
+  } = req.body;
+
+  // ✅ Basic field validation
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields (name, email, password)"
+    });
+  }
+
+  // ✅ SQL query
+  const sql = `
+    INSERT INTO users (
+      name, email, password, age, weight, gender, height,
+      HG_DailyCal, HG_Sleep, HG_Water, HG_Steps,
+      MI_BloodType, MI_Allergies, MI_MedicalCondition
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    name,
+    email,
+    password,
+    age || null,
+    weight || null,
+    gender || null,
+    height || null,
+    HG_DailyCal || null,
+    HG_Sleep || null,
+    HG_Water || null,
+    HG_Steps || null,
+    MI_BloodType || null,
+    MI_Allergies || null,
+    MI_MedicalCondition || null
+  ];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting user:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Database insertion failed",
+        error: err
+      });
+    }
+
+    console.log("User inserted with ID:", result.insertId);
+    res.json({
+      success: true,
+      message: "User registered successfully",
+      userId: result.insertId
+    });
+  });
+});
+
 app.listen(3000, () => console.log("Server running on port 3000"));
