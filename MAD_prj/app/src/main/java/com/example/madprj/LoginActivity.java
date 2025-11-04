@@ -1,6 +1,7 @@
 package com.example.madprj;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,7 +83,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, HealthDashboardActivity.class);
+
+                    SharedPreferences prefs = getSharedPreferences("userdata", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("email", email);
+                    editor.putString("password", password);
+                    editor.apply();
+
+                    Intent intent = new Intent(this, ProfileSettingsActivity.class);
                     startActivity(intent);
                 });
 
