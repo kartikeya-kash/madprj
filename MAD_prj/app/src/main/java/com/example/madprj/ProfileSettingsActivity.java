@@ -17,7 +17,7 @@ import java.net.URL;
 public class ProfileSettingsActivity extends AppCompatActivity {
 
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
-    TextView showemailobj;
+    TextView shownameobj, showemailobj,showbmiobj,showbmistatusobj,showageobj,showweightobj,showgenderobj,showheightobj,showcalobj,showsleepobj,showwaterobj,showstepsobj,showbloodobj,showallergiesobj,showmedicalconditionobj;
 
     // 🧠 Variables for user data
     String name, email, gender, bloodType, allergies, medicalCondition;
@@ -30,7 +30,23 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_settings);
 
+        shownameobj = findViewById(R.id.showname);
         showemailobj = findViewById(R.id.showemail);
+        showbmiobj = findViewById(R.id.showbmi);
+        showbmistatusobj = findViewById(R.id.showbmistatus);
+        showageobj = findViewById(R.id.showage);
+        showweightobj = findViewById(R.id.showweight);
+        showgenderobj = findViewById(R.id.showgender);
+        showheightobj = findViewById(R.id.showheight);
+        showcalobj  = findViewById(R.id.showcal);
+        showsleepobj = findViewById(R.id.showsleep);
+        showwaterobj = findViewById(R.id.showwater);
+        showstepsobj = findViewById(R.id.showsstep);
+        showbloodobj = findViewById(R.id.showblood);
+        showallergiesobj = findViewById(R.id.showallergies);
+        showmedicalconditionobj = findViewById(R.id.showmedicalcondition);
+
+
 
         // Navbar initialization
         navHome = findViewById(R.id.nav_home);

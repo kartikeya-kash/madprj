@@ -222,6 +222,7 @@
                     android:layout_marginStart="12dp">
 
                     <TextView
+                        android:id="@+id/showname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Alex Johnson"
@@ -245,6 +246,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/showbmi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="BMI: 22.9"
@@ -256,6 +258,7 @@
                             android:paddingBottom="4dp" />
 
                         <TextView
+                            android:id="@+id/showbmistatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Normal"
@@ -296,6 +299,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/showage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="28"
@@ -312,6 +316,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/showweight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="70"
@@ -335,6 +340,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/showgender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Female"
@@ -351,6 +357,7 @@
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/showheight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="175"
@@ -399,6 +406,7 @@
                             android:textSize="14sp"/>
 
                         <TextView
+                            android:id="@+id/showcal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="2000"
@@ -415,6 +423,7 @@
                             android:textSize="14sp"/>
 
                         <TextView
+                            android:id="@+id/showsleep"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="8"
@@ -438,6 +447,7 @@
                             android:textSize="14sp"/>
 
                         <TextView
+                            android:id="@+id/showwater"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="8"
@@ -454,6 +464,7 @@
                             android:textSize="14sp"/>
 
                         <TextView
+                            android:id="@+id/showsstep"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="10000"
@@ -491,6 +502,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/showblood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="A+"
@@ -507,6 +519,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/showallergies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Penicillin, Peanuts"
@@ -523,6 +536,7 @@
                     android:textSize="14sp"/>
 
                 <TextView
+                    android:id="@+id/showmedicalcondition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Hypertension"
