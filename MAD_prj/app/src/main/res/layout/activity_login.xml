@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_gradient"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Back!"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in to continue your health journey"
+            android:textColor="#61656B"
+            android:textSize="16sp"
+            android:layout_marginBottom="32dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/white_card_bg"
+            android:padding="24dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email address"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Sign In Button -->
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Sign In"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:stateListAnimator="@null"
+                android:elevation="4dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Divider Text -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Or continue with"
+                android:textAlignment="center"
+                android:textColor="#7A7F87"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Continue with Google"
+                android:background="@android:color/transparent"
+                android:textColor="#000000"
+                android:drawableStart="@drawable/ic_google"
+                android:drawablePadding="8dp"
+                android:drawableTint="#000000"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"
+                android:elevation="0dp"
+                android:stateListAnimator="@null" />
+
+            <Button
+                android:id="@+id/btnOTP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Continue with OTP"
+                android:background="@android:color/transparent"
+                android:textColor="#000000"
+                android:drawableStart="@drawable/ic_shield"
+                android:drawableTint="#000000"
+                android:drawablePadding="8dp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="20dp"
+                android:elevation="0dp"
+                android:stateListAnimator="@null" />
+
+            <!-- Sign up -->
+            <TextView
+                android:id="@+id/tvSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign up"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_marginBottom="4dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSkip"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Skip for now"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
+            android:stateListAnimator="@null"
+            android:elevation="4dp"
+            android:layout_marginBottom="24dp" />
+
+    </LinearLayout>
+</ScrollView>
