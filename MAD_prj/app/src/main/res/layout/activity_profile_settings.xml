@@ -3,7 +3,9 @@
     android:id="@+id/root_rel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FB">
+    android:background="#F8F9FB"
+    android:fitsSystemWindows="true"
+    >
 
     <!-- Bottom Navbar (declared first so ScrollView can reference it with layout_above) -->
     <LinearLayout

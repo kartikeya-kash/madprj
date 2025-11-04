@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    tools:context=".TrackCaloriesActivity">
+    tools:context=".TrackCaloriesActivity"
+    android:fitsSystemWindows="true">
 
     <!-- Top bar: back arrow and page text -->
     <ImageView

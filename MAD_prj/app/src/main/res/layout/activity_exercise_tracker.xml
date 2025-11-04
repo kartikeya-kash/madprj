@@ -3,7 +3,8 @@
     android:id="@+id/root_exercise"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F7F6">
+    android:background="#F2F7F6"
+    android:fitsSystemWindows="true">
 
     <!-- Scrollable Content area (above bottom nav) -->
     <ScrollView

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FB"
-    tools:context=".EmergencyActivity">
+    tools:context=".EmergencyActivity"
+    android:fitsSystemWindows="true">
 
     <!-- Bottom Navbar (declared first so ScrollView can reference it with layout_above) -->
     <LinearLayout

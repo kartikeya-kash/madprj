@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@drawable/bg_gradient"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
