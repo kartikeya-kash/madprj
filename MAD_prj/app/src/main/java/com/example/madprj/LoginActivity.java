@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,8 @@ import java.util.Scanner;
 public class LoginActivity extends AppCompatActivity {
 
     EditText etEmailObj, etPasswordObj;
-    Button btnSignInObj;
+    Button btnSignInObj ;
+    TextView tvSignupobj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         etEmailObj = findViewById(R.id.etEmail);
         etPasswordObj = findViewById(R.id.etPassword);
         btnSignInObj = findViewById(R.id.btnSignIn);
+        tvSignupobj = findViewById(R.id.tvSignup);
+        tvSignupobj.setOnClickListener(v->{
+            Intent i = new Intent(this, SignupActivity.class);
+            startActivity(i);
+        });
+
+
 
         btnSignInObj.setOnClickListener(v -> signin());
     }

@@ -1,10 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_gradient"
     tools:context=".SignupActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Heading -->
+        <TextView
+            android:id="@+id/tvCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fill your details to get started"
+            android:textColor="#61656B"
+            android:textSize="16sp"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Card Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/white_card_bg"
+            android:padding="24dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Name -->
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Email -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Age -->
+            <EditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Age"
+                android:inputType="number"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Gender -->
+            <EditText
+                android:id="@+id/etGender"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Gender (Male/Female/Other)"
+                android:inputType="text"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Weight -->
+            <EditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Weight (kg)"
+                android:inputType="numberDecimal"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Height -->
+            <EditText
+                android:id="@+id/etHeight"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Height (cm)"
+                android:inputType="numberDecimal"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Daily Calories -->
+            <EditText
+                android:id="@+id/etCalories"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Daily Calorie Goal"
+                android:inputType="number"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Water Intake -->
+            <EditText
+                android:id="@+id/etWater"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Daily Water Intake (ml)"
+                android:inputType="number"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Sleep -->
+            <EditText
+                android:id="@+id/etSleep"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Average Sleep (hrs)"
+                android:inputType="numberDecimal"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Steps -->
+            <EditText
+                android:id="@+id/etSteps"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Daily Step Goal"
+                android:inputType="number"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Blood Type -->
+            <EditText
+                android:id="@+id/etBloodType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Blood Type (e.g., A+, O-)"
+                android:inputType="text"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Allergies -->
+            <EditText
+                android:id="@+id/etAllergies"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Allergies (if any)"
+                android:inputType="text"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Medical Condition -->
+            <EditText
+                android:id="@+id/etCondition"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Medical Conditions (if any)"
+                android:inputType="text"
+                android:background="@drawable/edittext_bg"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Sign Up Button -->
+            <Button
+                android:id="@+id/btnSignup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Create Account"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:stateListAnimator="@null"
+                android:elevation="4dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Already have an account -->
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Login in"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
