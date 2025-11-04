@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.net.URL;
 public class ProfileSettingsActivity extends AppCompatActivity {
 
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
+    Button signoutbtnobj;
     TextView shownameobj, showemailobj,showbmiobj,showbmistatusobj,showageobj,showweightobj,showgenderobj,showheightobj,showcalobj,showsleepobj,showwaterobj,showstepsobj,showbloodobj,showallergiesobj,showmedicalconditionobj;
 
     // 🧠 Variables for user data
@@ -29,6 +31,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_settings);
+        signoutbtnobj = findViewById(R.id.signoutbtn);
+        signoutbtnobj.setOnClickListener(v->out());
 
         shownameobj = findViewById(R.id.showname);
         showemailobj = findViewById(R.id.showemail);
@@ -154,5 +158,18 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             e.printStackTrace();
             runOnUiThread(() -> showemailobj.setText("❌ Error: " + e.getMessage()));
         }
+
+
     }
+
+    public void out(){
+        SharedPreferences.Editor editor = getSharedPreferences("userdata", MODE_PRIVATE).edit();
+        editor.clear();
+        Intent intent = new Intent(ProfileSettingsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+        editor.apply();
+    }
+
+
 }
