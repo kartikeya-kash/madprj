@@ -62,6 +62,9 @@ public class SignupStep4Activity extends AppCompatActivity {
             String sleep = usersignupdata.getString("sleep_goal", "");
             String steps = usersignupdata.getString("steps_goal", "");
 
+            
+
+
             // ✅ You can log or send these to server/db if needed
             // Log.d("SignupData", name + " " + email + " " + gender + " " + weight + ...);
 
