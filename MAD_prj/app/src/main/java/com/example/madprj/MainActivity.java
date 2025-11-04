@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set click listener to open TrackCaloriesActivity
         btnGetStarted.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, WaterTrackerActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }

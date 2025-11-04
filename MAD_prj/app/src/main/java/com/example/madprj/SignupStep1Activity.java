@@ -65,6 +65,9 @@ public class SignupStep1Activity extends AppCompatActivity {
             editor.putString("name", name);
             editor.putString("email", email);
             editor.putString("password", password);
+            editor.apply();
+
+            Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
 
             Intent i = new Intent(this, SignupStep2Activity.class);
             startActivity(i);

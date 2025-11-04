@@ -66,6 +66,8 @@ public class SignupStep4Activity extends AppCompatActivity {
             String sleep = usersignupdata.getString("sleep_goal", "");
             String steps = usersignupdata.getString("steps_goal", "");
 
+            Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
+
             // 🔹 Prepare data for API
             try {
                 JSONObject userData = new JSONObject();
