@@ -35,4 +35,21 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.get("/getUserData", (req, res) => {
+  const email = req.query.email;
+  const sql = "SELECT * FROM users WHERE email = ?";
+
+  db.query(sql, [email], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, user: results[0] });
+  });
+});
+
 app.listen(3000, () => console.log("Server running on port 3000"));
