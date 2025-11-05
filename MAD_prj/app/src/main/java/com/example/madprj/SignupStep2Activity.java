@@ -51,7 +51,6 @@ public class SignupStep2Activity extends AppCompatActivity {
             editor.putString("height", height);
             editor.apply(); // ✅ saves asynchronously
 
-            Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Details saved successfully", Toast.LENGTH_SHORT).show();
 
             // 🔹 Move to next step

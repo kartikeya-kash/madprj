@@ -104,7 +104,7 @@ public class SignupStep4Activity extends AppCompatActivity {
                 Request.Method.POST, url, userData,
                 response -> {
                     Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, HealthDashboardActivity.class));
+                    startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 },
                 error -> {
