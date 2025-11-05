@@ -22,7 +22,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
     private LinearLayout cardCalories, cardWater, cardSleep, cardExercise, cardVitals, cardReports;
     private Button btnLogWater, btnAddMeal;
-    TextView summary_steps_value_obj,summary_cal_value_obj;
+    TextView summary_steps_value_obj,summary_cal_value_obj,sub_cal_obj,percent_cal,sub_sleep,percent_sleep;
     float caloriesBurned;
 
     // ✅ Global variable to store user steps
@@ -32,20 +32,29 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private boolean isSensorPresent = false;
-    String weight,height;
+    String weight,height,calories,water,sleep,steps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_health_dashboard);
+
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String age = usersignupdata.getString("age", "");
          weight = usersignupdata.getString("weight", "");
          height = usersignupdata.getString("height", "");
+         calories = usersignupdata.getString("calories_goal", "");
+         water = usersignupdata.getString("water_goal", "");
+         sleep = usersignupdata.getString("sleep_goal", "");
+         steps = usersignupdata.getString("steps_goal", "");
 
         summary_steps_value_obj = findViewById(R.id.summary_steps_value);
         summary_cal_value_obj = findViewById(R.id.summary_cal_value);
+        sub_cal_obj=findViewById(R.id.sub_cal);
+        percent_cal=findViewById(R.id.percent_cal);
+        sub_sleep=findViewById(R.id.sub_sleep);
+        percent_sleep=findViewById(R.id.percent_sleep);
 
 
         // ------------------- NAVBAR ------------------- //
@@ -178,10 +187,17 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         float distanceKm = (userTotalSteps * stride) / 1000f;
 
         // ✅ Calculate calories using walking MET = 3.5
-        float caloriesBurned = 3.5f * weightKg * (distanceKm / 5f);
+        int caloriesBurned = (int) (3.5f * weightKg * (distanceKm / 5f));
 
-        summary_cal_value_obj.setText(String.valueOf(caloriesBurned));
-        summary_steps_value_obj.setText(String.valueOf(userTotalSteps));
+        summary_cal_value_obj.setText(String.valueOf(caloriesBurned)); //set calories in head
+        summary_steps_value_obj.setText(String.valueOf(userTotalSteps)); //set steps in head
+
+        sub_cal_obj.setText(caloriesBurned+" / "+calories+" kcal"); // set calories in cards
+        int calint = Integer.parseInt(calories);
+        int calper = (int) ((caloriesBurned * 100) / calint);
+        percent_cal.setText(calper+"% complete"); // set calories in cards
+
+      
     }
 
     @Override

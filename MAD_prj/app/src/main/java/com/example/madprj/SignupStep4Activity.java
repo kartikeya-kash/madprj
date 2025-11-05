@@ -96,7 +96,7 @@ public class SignupStep4Activity extends AppCompatActivity {
 
     // 🔹 Function to send data to Node.js backend
     private void sendSignupDataToServer(JSONObject userData) {
-        String url = "http://10.0.2.2:3000/signup"; // ⚠️ Replace with your system IP
+        String url = "https://9rp3msd0-3000.inc1.devtunnels.ms/signup"; // ⚠️ Replace with your system IP
 
         RequestQueue queue = Volley.newRequestQueue(this);
 

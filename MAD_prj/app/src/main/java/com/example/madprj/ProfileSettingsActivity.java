@@ -80,7 +80,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
 
     private void fetchUserData(String email) {
         try {
-            URL url = new URL("http://10.0.2.2:3000/getUserData?email=" + email);
+            URL url = new URL("https://9rp3msd0-3000.inc1.devtunnels.ms//getUserData?email=" + email);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
