@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:id="@+id/tv_page"
@@ -31,9 +31,9 @@
         android:textColor="#7B7F86"
         app:layout_constraintTop_toTopOf="@id/iv_back"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp" />
 
-    <!-- Card 1-->
+    <!-- Card 1 -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card1"
         android:layout_width="340dp"
@@ -46,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dots"
         android:visibility="visible">
 
         <LinearLayout
@@ -56,7 +57,6 @@
             android:paddingBottom="18dp"
             android:gravity="top|center_horizontal">
 
-            <!-- image at top with rounded corners-->
             <ImageView
                 android:id="@+id/iv_food"
                 android:layout_width="300dp"
@@ -65,42 +65,38 @@
                 android:src="@drawable/track_calories_img"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/image_rounded"
-                android:clipToOutline="true"/>
+                android:clipToOutline="true" />
 
-            <!-- wave icon -->
             <ImageView
                 android:id="@+id/iv_wave"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginTop="22dp"
                 android:src="@drawable/ic_heartbeat"
-                android:contentDescription="wave icon"/>
+                android:contentDescription="wave icon" />
 
-            <!-- Title -->
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Track Calories"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="#08101A"
-                android:layout_marginTop="18dp"/>
+                android:layout_marginTop="18dp" />
 
-            <!-- Description -->
             <TextView
-
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:text="Log your meals and monitor your daily calorie intake with our smart food database."
                 android:textSize="16sp"
                 android:textColor="#7F8A92"
                 android:gravity="center"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Card 2 -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card2"
         android:layout_width="340dp"
@@ -113,6 +109,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dots"
         android:visibility="gone">
 
         <LinearLayout
@@ -123,12 +120,10 @@
             android:paddingTop="18dp"
             android:paddingBottom="18dp">
 
-            <!-- image with rounded corners: wrap in MaterialCardView so image is clipped -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="300dp"
                 android:layout_height="200dp"
                 app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="false"
                 android:layout_marginTop="6dp">
 
                 <ImageView
@@ -137,44 +132,39 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/sleep_plate"
-                    android:contentDescription="Sleep image"
-                    android:adjustViewBounds="true"/>
+                    android:contentDescription="Sleep image" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- heart outline -->
             <ImageView
                 android:id="@+id/iv_heart"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginTop="22dp"
                 android:src="@drawable/ic_heart_outline"
-                android:contentDescription="Heart"/>
+                android:contentDescription="Heart" />
 
-            <!-- Title -->
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Log Sleep"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="#08101A"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp" />
 
-            <!-- Description -->
             <TextView
-
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="Monitor your sleep patterns and get insights to improve your rest quality."
                 android:textSize="16sp"
                 android:textColor="#7F8A92"
                 android:gravity="center"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Card 3 -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card3"
         android:layout_width="340dp"
@@ -187,6 +177,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dots"
         android:visibility="gone">
 
         <LinearLayout
@@ -196,12 +187,10 @@
             android:gravity="top|center_horizontal"
             android:padding="18dp">
 
-            <!-- Image with rounded corners -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="false">
+                app:cardCornerRadius="12dp">
 
                 <ImageView
                     android:id="@+id/iv_ai_image"
@@ -212,7 +201,6 @@
                     android:contentDescription="AI Tips Image" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Brain Icon -->
             <ImageView
                 android:id="@+id/iv_brain"
                 android:layout_width="64dp"
@@ -221,7 +209,6 @@
                 android:src="@drawable/ic_brain_blue"
                 android:contentDescription="AI Brain Icon" />
 
-            <!-- Title -->
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -232,7 +219,6 @@
                 android:textColor="#08101A"
                 android:layout_marginTop="12dp" />
 
-            <!-- Description -->
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="300dp"
@@ -242,11 +228,8 @@
                 android:textColor="#7F8A92"
                 android:gravity="center"
                 android:layout_marginTop="10dp" />
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-
 
     <!-- Page indicator dots -->
     <LinearLayout
@@ -263,19 +246,19 @@
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:src="@drawable/active_dot"/>
+            android:src="@drawable/active_dot" />
 
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="12dp"
-            android:src="@drawable/inactive_dot"/>
+            android:src="@drawable/inactive_dot" />
 
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="12dp"
-            android:src="@drawable/inactive_dot"/>
+            android:src="@drawable/inactive_dot" />
     </LinearLayout>
 
     <!-- Bottom Next button -->
@@ -303,7 +286,7 @@
             app:backgroundTint="@null"
             android:stateListAnimator="@null"
             android:elevation="4dp"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
