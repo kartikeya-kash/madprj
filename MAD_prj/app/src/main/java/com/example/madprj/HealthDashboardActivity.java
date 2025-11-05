@@ -2,6 +2,7 @@ package com.example.madprj;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -31,12 +32,18 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private boolean isSensorPresent = false;
+    String weight,height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_health_dashboard);
+        SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
+        String age = usersignupdata.getString("age", "");
+         weight = usersignupdata.getString("weight", "");
+         height = usersignupdata.getString("height", "");
+
         summary_steps_value_obj = findViewById(R.id.summary_steps_value);
         summary_cal_value_obj = findViewById(R.id.summary_cal_value);
 
@@ -156,9 +163,23 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     @Override
     public void onSensorChanged(android.hardware.SensorEvent event) {
         userTotalSteps = (int) event.values[0];
-        float weightKg = 70f; // later you can fetch from user profile
-        float distanceKm = userTotalSteps * 0.0008f;
-         caloriesBurned = 0.57f * weightKg * distanceKm;
+
+        float weightKg = 0f;
+        float heightCm = 0f;
+        try {
+            weightKg = Float.parseFloat(weight);
+            heightCm = Float.parseFloat(height);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        // ✅ Calculate stride length and distance
+        float stride = heightCm * 0.415f / 100f; // meters per step
+        float distanceKm = (userTotalSteps * stride) / 1000f;
+
+        // ✅ Calculate calories using walking MET = 3.5
+        float caloriesBurned = 3.5f * weightKg * (distanceKm / 5f);
+
         summary_cal_value_obj.setText(String.valueOf(caloriesBurned));
         summary_steps_value_obj.setText(String.valueOf(userTotalSteps));
     }
