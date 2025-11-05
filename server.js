@@ -126,4 +126,30 @@ app.post("/signup", (req, res) => {
   });
 });
 
+// ✅ Store calorie intake for a user
+app.post("/addCalorieIntake", (req, res) => {
+  const { email, calorie_intake } = req.body;
+
+  if (!email || !calorie_intake) {
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields (email, calorie_intake)"
+    });
+  }
+
+  const sql = "INSERT INTO user_calorie_intake (email, calorie_intake) VALUES (?, ?)";
+  db.query(sql, [email, calorie_intake], (err, result) => {
+    if (err) {
+      console.error("Error inserting calorie intake:", err);
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+
+    res.json({
+      success: true,
+      message: "Calorie intake stored successfully",
+      id: result.insertId
+    });
+  });
+});
+
 app.listen(3000, () => console.log("Server running on port 3000"));

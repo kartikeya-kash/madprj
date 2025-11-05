@@ -45,3 +45,37 @@ VALUES (
     'Dust', 
     'Asthma'
 );
+
+
+INSERT INTO users (
+    name, email, password, age, weight, gender, height,
+    HG_DailyCal, HG_Sleep, HG_Water, HG_Steps,
+    MI_BloodType, MI_Allergies, MI_MedicalCondition
+)
+VALUES (
+    'Kartikeya Sharma', 
+    'kartikeya.anjul@gmail.com', 
+    'pass', 
+    20, 
+    85, 
+    'Male', 
+    170.2, 
+    2200, 
+    7.5, 
+    2.8, 
+    8500, 
+    'A+', 
+    'Dust', 
+    'NONE'
+);
+
+select * from users;
+
+
+CREATE TABLE user_calorie_intake (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    calorie_intake INT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+);

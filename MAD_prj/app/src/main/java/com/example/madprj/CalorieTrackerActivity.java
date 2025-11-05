@@ -15,6 +15,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -31,6 +35,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
     ProgressBar loader;
     TextView loadingMessage,calorie_eaten;
     String ai_response_cleaned;
+    String cal_intake_db;
     int cal_consumed=0;
 
     @Override
@@ -57,6 +62,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
                 cal_consumed+=Integer.parseInt(ai_response_cleaned);
                 Toast.makeText(this, "Calories added", Toast.LENGTH_SHORT).show();
                 calorie_eaten.setText(cal_consumed+" kcal consumed");
+                storeindb(email,cal_intake_db);
             });
             abd.setNegativeButton("No", (dialog, which) -> {
                 Toast.makeText(this, "Calories not added", Toast.LENGTH_SHORT).show();
@@ -106,6 +112,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
                         Toast.makeText(this, "No response from AI", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(this, user_promt + " ≈ " + ai_response_cleaned + " kcal", Toast.LENGTH_LONG).show();
+                        cal_intake_db=user_promt+" ≈ "+ai_response_cleaned+" kcal";
                     }
                 });
             });
@@ -155,4 +162,35 @@ public class CalorieTrackerActivity extends AppCompatActivity {
             if (connection != null) connection.disconnect();
         }
     }
+
+    public void storeindb(String email, String cal_intake_db) {
+        String url = "https://9rp3msd0-3000.inc1.devtunnels.ms/addCalorieIntake";  // Replace with your Node server IP (e.g., 192.168.1.10)
+
+        try {
+            JSONObject postData = new JSONObject();
+            postData.put("email", email);
+            postData.put("calorie_intake", cal_intake_db);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    postData,
+                    response -> {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            String message = response.getString("message");
+                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show()
+            );
+
+            Volley.newRequestQueue(getApplicationContext()).add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
