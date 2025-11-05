@@ -214,6 +214,8 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
 
 
         int waterint = Integer.parseInt(water);
+        SharedPreferences waterPrefs = getSharedPreferences("waterdrunk", MODE_PRIVATE);
+        watercount=waterPrefs.getInt("glassesDrunk", 0);
         sub_water.setText( watercount+" glass / "+ (waterint*4)/1000 +" glasses"); //water card
         int perofwater = (int) ((watercount * 100) / ((waterint/1000)*4));
         percent_water.setText(perofwater+"% complete");

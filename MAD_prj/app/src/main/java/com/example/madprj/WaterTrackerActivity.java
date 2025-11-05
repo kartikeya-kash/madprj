@@ -11,22 +11,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class WaterTrackerActivity extends AppCompatActivity {
 
     // Declare UI elements
-
     private TextView tvGlasses, tvEncourage, tvRemaining;
     private ProgressBar progressBar;
     private Button btnAddGlass, btnMinus;
 
     private int glassesDrunk = 0; // Start from 1 glass
-    private  int TOTAL_GLASSES ;
-
+    private int TOTAL_GLASSES;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,21 @@ public class WaterTrackerActivity extends AppCompatActivity {
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String water = usersignupdata.getString("water_goal", "");
         int num = Integer.parseInt(water);
-        TOTAL_GLASSES = (num/1000)*4;
+        TOTAL_GLASSES = (num / 1000) * 4;
+
+        // ✅ Load saved progress (with daily reset)
+        SharedPreferences waterPrefs = getSharedPreferences("waterdrunk", MODE_PRIVATE);
+        String lastDate = waterPrefs.getString("lastDate", "");
+        String today = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+
+        if (!today.equals(lastDate)) {
+            // new day → reset count
+            glassesDrunk = 0;
+            waterPrefs.edit().putString("lastDate", today).apply();
+        } else {
+            // same day → load saved progress
+            glassesDrunk = waterPrefs.getInt("glassesDrunk", 0);
+        }
 
         // Toolbar Back button
         ImageView backBtn = findViewById(R.id.back_button);
@@ -67,6 +81,7 @@ public class WaterTrackerActivity extends AppCompatActivity {
         if (glassesDrunk < TOTAL_GLASSES) {
             glassesDrunk++;
             HealthDashboardActivity.changewatercount(glassesDrunk);
+            saveWaterProgress(); // ✅ save progress
             updateUI();
         } else {
             Toast.makeText(this, "You've reached your daily goal! 🎉", Toast.LENGTH_SHORT).show();
@@ -77,10 +92,20 @@ public class WaterTrackerActivity extends AppCompatActivity {
     private void removeGlass() {
         if (glassesDrunk > 0) {
             glassesDrunk--;
+            saveWaterProgress(); // ✅ save progress
             updateUI();
         } else {
             Toast.makeText(this, "No glasses to remove!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // ✅ Save progress to SharedPreferences
+    private void saveWaterProgress() {
+        SharedPreferences waterPrefs = getSharedPreferences("waterdrunk", MODE_PRIVATE);
+        SharedPreferences.Editor editor = waterPrefs.edit();
+        editor.putInt("glassesDrunk", glassesDrunk);
+        editor.putString("lastDate", new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date()));
+        editor.apply();
     }
 
     // Update progress bar, text, and water drops
@@ -110,10 +135,6 @@ public class WaterTrackerActivity extends AppCompatActivity {
         } else {
             tvEncourage.setText("Time to drink your first glass 💦");
         }
-
-
-
-
     }
 
     // Navigation to other activities
