@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,8 +25,8 @@ public class WaterTrackerActivity extends AppCompatActivity {
     private Button btnAddGlass, btnMinus;
 
     private int glassesDrunk = 0; // Start from 1 glass
-    private final int TOTAL_GLASSES = 8;
-    SharedPreferences.Editor editor;
+    private  int TOTAL_GLASSES ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,10 @@ public class WaterTrackerActivity extends AppCompatActivity {
         btnAddGlass = findViewById(R.id.btn_add_glass);
         btnMinus = findViewById(R.id.btn_minus);
 
-        SharedPreferences waterdrunk = getSharedPreferences("waterdrunk", MODE_PRIVATE);
-         editor = waterdrunk.edit();
-        editor.putInt("waterdrunk", glassesDrunk);
-        editor.apply();
-
-
-
+        SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
+        String water = usersignupdata.getString("water_goal", "");
+        int num = Integer.parseInt(water);
+        TOTAL_GLASSES = (num/1000)*4;
 
         // Toolbar Back button
         ImageView backBtn = findViewById(R.id.back_button);
@@ -67,6 +66,7 @@ public class WaterTrackerActivity extends AppCompatActivity {
     private void addGlass() {
         if (glassesDrunk < TOTAL_GLASSES) {
             glassesDrunk++;
+            HealthDashboardActivity.changewatercount(glassesDrunk);
             updateUI();
         } else {
             Toast.makeText(this, "You've reached your daily goal! 🎉", Toast.LENGTH_SHORT).show();
@@ -111,7 +111,7 @@ public class WaterTrackerActivity extends AppCompatActivity {
             tvEncourage.setText("Time to drink your first glass 💦");
         }
 
-        editor.putInt("waterdrunk", glassesDrunk);
+
 
 
     }

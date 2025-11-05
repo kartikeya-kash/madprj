@@ -33,7 +33,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private Sensor stepSensor;
     private boolean isSensorPresent = false;
     String weight,height,calories,water,sleep,steps;
-    int watercount=1;
+    public static int watercount=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +50,10 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
          sleep = usersignupdata.getString("sleep_goal", "");
          steps = usersignupdata.getString("steps_goal", "");
 
-        SharedPreferences waterdrunk = getSharedPreferences("waterdrunk", MODE_PRIVATE);
-        watercount = waterdrunk.getInt("waterdrunk",0);
+        SharedPreferences waterdrunkdata = getSharedPreferences("waterdrunkdata", MODE_PRIVATE);
+        watercount=waterdrunkdata.getInt("waterdrunk",0);
+
+        // ------------------- HEAD ------------------- //
 
         summary_steps_value_obj = findViewById(R.id.summary_steps_value);
         summary_cal_value_obj = findViewById(R.id.summary_cal_value);
@@ -222,4 +224,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
 
     @Override
     public void onAccuracyChanged(android.hardware.Sensor sensor, int accuracy) {}
+    public static void changewatercount(int count){
+        watercount=count;
+    };
 }

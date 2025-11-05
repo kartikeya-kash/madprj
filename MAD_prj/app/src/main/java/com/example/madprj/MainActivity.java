@@ -2,6 +2,7 @@ package com.example.madprj;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        int waterdrunk=0;
+        SharedPreferences waterdrunkdata = getSharedPreferences("waterdrunkdata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = waterdrunkdata.edit();
+        editor.putInt("waterdrunk", waterdrunk);
+        editor.apply();
+
 
         // Find the "Get Started" button
         Button btnGetStarted = findViewById(R.id.btnGetStarted);
