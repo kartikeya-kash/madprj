@@ -21,7 +21,8 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
     private LinearLayout cardCalories, cardWater, cardSleep, cardExercise, cardVitals, cardReports;
     private Button btnLogWater, btnAddMeal;
-    TextView summary_steps_value_obj;
+    TextView summary_steps_value_obj,summary_cal_value_obj;
+    float caloriesBurned;
 
     // ✅ Global variable to store user steps
     public static int userTotalSteps = 0;
@@ -37,6 +38,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_health_dashboard);
         summary_steps_value_obj = findViewById(R.id.summary_steps_value);
+        summary_cal_value_obj = findViewById(R.id.summary_cal_value);
 
 
         // ------------------- NAVBAR ------------------- //
@@ -154,6 +156,10 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     @Override
     public void onSensorChanged(android.hardware.SensorEvent event) {
         userTotalSteps = (int) event.values[0];
+        float weightKg = 70f; // later you can fetch from user profile
+        float distanceKm = userTotalSteps * 0.0008f;
+         caloriesBurned = 0.57f * weightKg * distanceKm;
+        summary_cal_value_obj.setText(String.valueOf(caloriesBurned));
         summary_steps_value_obj.setText(String.valueOf(userTotalSteps));
     }
 
