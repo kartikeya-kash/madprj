@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.EdgeToEdge;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -140,37 +141,59 @@ public class ReportsInsightsActivity extends AppCompatActivity {
     // 🔹 Async Ollama AI call using Volley (no blocking)
     private void callOllamaAI(String prompt) {
         try {
-            String url = "http://10.0.2.2:5001/api/generate"; // use your Mac's IP if real phone
-
+            String url = "http://10.0.2.2:5001/api/generate";  // emulator
             JSONObject body = new JSONObject();
-            body.put("model", "llama3.2:3b");
+            body.put("model", "llama3.2:3b");  // ✅ keep full 3B model
             body.put("prompt", prompt);
             body.put("stream", false);
 
-            JsonObjectRequest aiRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    url,
-                    body,
-                    response -> {
-                        String aiResponse = response.optString("response", "No AI response").trim();
-                        tv_ai_generated_report_obj.setText(aiResponse);
-                    },
-                    error -> {
-                        String msg;
-                        if (error.networkResponse != null)
-                            msg = "AI Error " + error.networkResponse.statusCode + ": " + new String(error.networkResponse.data);
-                        else
-                            msg = "AI Error: " + error.getMessage();
-                        tv_ai_generated_report_obj.setText(msg);
-                    }
-            ) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-            };
+            com.android.volley.toolbox.StringRequest request =
+                    new com.android.volley.toolbox.StringRequest(
+                            Request.Method.POST,
+                            url,
+                            response -> {
+                                try {
+                                    JSONObject json = new JSONObject(response);
+                                    String aiResponse = json.optString("response", "").trim();
 
-            Volley.newRequestQueue(getApplicationContext()).add(aiRequest);
+                                    if (aiResponse.isEmpty())
+                                        tv_ai_generated_report_obj.setText("⚠️ AI returned empty response");
+                                    else
+                                        tv_ai_generated_report_obj.setText(aiResponse);
+
+                                } catch (Exception e) {
+                                    tv_ai_generated_report_obj.setText("Raw response: " + response);
+                                }
+                            },
+                            error -> {
+                                String msg;
+                                if (error.networkResponse != null)
+                                    msg = "AI Error " + error.networkResponse.statusCode + ": " +
+                                            new String(error.networkResponse.data);
+                                else
+                                    msg = "AI Error: " + (error.getMessage() != null ? error.getMessage() : "Unknown");
+                                tv_ai_generated_report_obj.setText(msg);
+                            }) {
+
+                        @Override
+                        public byte[] getBody() {
+                            return body.toString().getBytes();
+                        }
+
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/json; charset=utf-8";
+                        }
+                    };
+
+            // ✅ Extend timeout (default is 2500 ms → make it 30 000 ms)
+            request.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+                    30000,
+                    0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            ));
+
+            Volley.newRequestQueue(getApplicationContext()).add(request);
 
         } catch (Exception e) {
             e.printStackTrace();
