@@ -3,9 +3,11 @@ package com.example.madprj;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,12 +27,18 @@ public class ReportsInsightsActivity extends AppCompatActivity {
     EditText queobj;
     Button btn_generate_ai_report_obj;
     TextView tv_ai_generated_report_obj;
+    LinearLayout aiLoaderContainer;
+    ProgressBar aiLoader;
+    TextView aiLoaderText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reports_insights);
+        aiLoaderContainer = findViewById(R.id.ai_loader_container);
+        aiLoader = findViewById(R.id.ai_loader);
+        aiLoaderText = findViewById(R.id.ai_loader_text);
 
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String email = usersignupdata.getString("email", "");
@@ -141,17 +149,23 @@ public class ReportsInsightsActivity extends AppCompatActivity {
     // 🔹 Async Ollama AI call using Volley (no blocking)
     private void callOllamaAI(String prompt) {
         try {
-            String url = "http://10.0.2.2:5001/api/generate";  // emulator
+            String url = "http://10.0.2.2:5001/api/generate";
+
             JSONObject body = new JSONObject();
-            body.put("model", "llama3.2:3b");  // ✅ keep full 3B model
+            body.put("model", "llama3.2:3b"); // your main model
             body.put("prompt", prompt);
             body.put("stream", false);
+
+            // 🔹 Show loader
+            aiLoaderContainer.setVisibility(View.VISIBLE);
+            tv_ai_generated_report_obj.setText("");
 
             com.android.volley.toolbox.StringRequest request =
                     new com.android.volley.toolbox.StringRequest(
                             Request.Method.POST,
                             url,
                             response -> {
+                                aiLoaderContainer.setVisibility(View.GONE); // hide loader
                                 try {
                                     JSONObject json = new JSONObject(response);
                                     String aiResponse = json.optString("response", "").trim();
@@ -166,6 +180,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
                                 }
                             },
                             error -> {
+                                aiLoaderContainer.setVisibility(View.GONE); // hide loader
                                 String msg;
                                 if (error.networkResponse != null)
                                     msg = "AI Error " + error.networkResponse.statusCode + ": " +
@@ -186,16 +201,14 @@ public class ReportsInsightsActivity extends AppCompatActivity {
                         }
                     };
 
-            // ✅ Extend timeout (default is 2500 ms → make it 30 000 ms)
             request.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
-                    30000,
-                    0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                    30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             ));
 
             Volley.newRequestQueue(getApplicationContext()).add(request);
 
         } catch (Exception e) {
+            aiLoaderContainer.setVisibility(View.GONE);
             e.printStackTrace();
             tv_ai_generated_report_obj.setText("Error: " + e.getMessage());
         }

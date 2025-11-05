@@ -267,6 +267,31 @@
                     android:textColor="#FFFFFF"
                     android:elevation="3dp"
                     android:layout_marginBottom="8dp" />
+                <LinearLayout
+                    android:id="@+id/ai_loader_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="12dp">
+
+                    <ProgressBar
+                        android:id="@+id/ai_loader"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="#D7263D" />
+
+                    <TextView
+                        android:id="@+id/ai_loader_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Generating report..."
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_ai_generated_report"
