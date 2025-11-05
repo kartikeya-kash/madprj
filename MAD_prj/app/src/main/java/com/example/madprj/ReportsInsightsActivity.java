@@ -89,9 +89,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
                                 }
 
                                 // 🔹 Step 2: Build AI prompt
-                                String prompt = "Generate a simple fitness and health report summary for this user data. "
-                                        + "Don't ask questions, just describe insights clearly. "
-                                        + "Assume light exercise daily. Data:\n\n" + dataForAI.toString();
+                                String prompt = "User question: "+que + "\n\n" + dataForAI.toString()+"Give answer to user; if asked to genetate report then detailed generate medical report based on data provided";
 
                                 // 🔹 Step 3: Call Ollama AI using Volley
                                 callOllamaAI(prompt);
@@ -149,7 +147,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
     // 🔹 Async Ollama AI call using Volley (no blocking)
     private void callOllamaAI(String prompt) {
         try {
-            String url = "http://10.0.2.2:5001/api/generate";
+            String url = "https://9rp3msd0-5001.inc1.devtunnels.ms/api/generate";
 
             JSONObject body = new JSONObject();
             body.put("model", "llama3.2:3b"); // your main model
