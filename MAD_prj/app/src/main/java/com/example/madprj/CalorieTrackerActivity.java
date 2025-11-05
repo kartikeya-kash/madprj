@@ -1,12 +1,18 @@
 package com.example.madprj;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
@@ -15,26 +21,56 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CalorieTrackerActivity extends AppCompatActivity {
 
     EditText etMealNameobj;
-    Button btn_cal_calories_aiobj;
+    Button btn_cal_calories_aiobj,btn_add_calories;
+    ProgressBar loader;
+    TextView loadingMessage,calorie_eaten;
+    String ai_response_cleaned;
+    int cal_consumed=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_calorie_tracker);
+        calorie_eaten=findViewById(R.id.calorie_eaten);
 
+        SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
+        String email = usersignupdata.getString("email", ""); //for storing in the db
+
+        // UI references
         etMealNameobj = findViewById(R.id.etMealName);
         btn_cal_calories_aiobj = findViewById(R.id.btn_cal_calories_ai);
+        loader = findViewById(R.id.progress_loader);
+        loadingMessage = findViewById(R.id.loading_message);
+        btn_add_calories = findViewById(R.id.btn_add_calories);
+        btn_add_calories.setOnClickListener(v -> {
+            AlertDialog.Builder abd = new AlertDialog.Builder(this);
+            abd.setTitle("Add "+ai_response_cleaned+" calories");
+            abd.setMessage("Are you sure");
+            abd.setPositiveButton("Yes", (dialog, which) -> {
+                cal_consumed+=Integer.parseInt(ai_response_cleaned);
+                Toast.makeText(this, "Calories added", Toast.LENGTH_SHORT).show();
+                calorie_eaten.setText(cal_consumed+" kcal consumed");
+            });
+            abd.setNegativeButton("No", (dialog, which) -> {
+                Toast.makeText(this, "Calories not added", Toast.LENGTH_SHORT).show();
+            });
+            abd.show();
+            // ai_response_cleaned variable
+        });
 
-        // Temporarily allow network on main thread (not recommended for production)
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-        // When button is clicked
+        // Hide loader initially
+        loader.setVisibility(View.GONE);
+        loadingMessage.setVisibility(View.GONE);
+
+        // Handle button click
         btn_cal_calories_aiobj.setOnClickListener(v -> {
             String user_promt = etMealNameobj.getText().toString().trim();
 
@@ -43,41 +79,64 @@ public class CalorieTrackerActivity extends AppCompatActivity {
                 return;
             }
 
+            // Build AI prompt
             String ai_rule = "Reply only with a number (no text). How many calories in "
                     + user_promt + "? Only number output like 250.";
 
-            String ai_response = getOllamaResponse(ai_rule);
+            // Show loader and disable button
+            loader.setVisibility(View.VISIBLE);
+            loadingMessage.setVisibility(View.VISIBLE);
+            btn_cal_calories_aiobj.setEnabled(false);
 
-            ai_response = ai_response.replaceAll("[^0-9]", ""); // remove non-numeric chars
+            // Run AI call in background
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Handler handler = new Handler(Looper.getMainLooper());
 
-            if (ai_response.isEmpty()) {
-                Toast.makeText(this, "No response from AI", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, user_promt + " ≈ " + ai_response + " kcal", Toast.LENGTH_LONG).show();
-            }
+            executor.execute(() -> {
+                String rawResponse = getOllamaResponse(ai_rule);
+                 ai_response_cleaned = rawResponse.replaceAll("[^0-9]", ""); // keep only digits
+
+                // Switch back to main thread for UI updates
+                handler.post(() -> {
+                    loader.setVisibility(View.GONE);
+                    loadingMessage.setVisibility(View.GONE);
+                    btn_cal_calories_aiobj.setEnabled(true);
+
+                    if (ai_response_cleaned.isEmpty()) {
+                        Toast.makeText(this, "No response from AI", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, user_promt + " ≈ " + ai_response_cleaned + " kcal", Toast.LENGTH_LONG).show();
+                    }
+                });
+            });
         });
     }
 
     private String getOllamaResponse(String prompt) {
+        HttpURLConnection connection = null;
         try {
-            URL url = new URL("http://10.0.2.2:5001/api/generate"); // emulator
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            // ✅ Use 10.0.2.2 for Android Emulator.
+            // If you're using a real phone, replace with your Mac's IP (e.g., 192.168.x.x)
+            URL url = new URL("http://10.0.2.2:5001/api/generate");
+            connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            // Include "stream": false to get one single JSON object
+            // Build JSON body
             String body = new JSONObject()
                     .put("model", "llama3.2:3b")
                     .put("prompt", prompt)
                     .put("stream", false)
                     .toString();
 
+            // Send the body
             try (OutputStream os = connection.getOutputStream()) {
                 os.write(body.getBytes());
                 os.flush();
             }
 
+            // Read response
             Scanner scanner = new Scanner(connection.getInputStream());
             StringBuilder response = new StringBuilder();
             while (scanner.hasNext()) {
@@ -85,13 +144,15 @@ public class CalorieTrackerActivity extends AppCompatActivity {
             }
             scanner.close();
 
-            // Parse JSON and return response text
+            // Parse JSON and return only the response text
             JSONObject json = new JSONObject(response.toString());
             return json.optString("response", "").trim();
 
         } catch (Exception e) {
             e.printStackTrace();
             return "Error: " + e.getMessage();
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 }

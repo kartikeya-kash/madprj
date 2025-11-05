@@ -58,76 +58,29 @@
             android:weightSum="2">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="323dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/calorie_eaten"
-                    android:layout_width="wrap_content"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
-                    android:text="1247"
+                    android:text="1247 calorie consumed"
                     android:textColor="#D7263D"
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/calorie_target"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="of 2000 kcal"
-                    android:textColor="#777777"
-                    android:textSize="14sp" />
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="end">
 
-                <TextView
-                    android:id="@+id/calorie_remaining"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="753"
-                    android:textColor="#D95D2B"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/remaining_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="remaining"
-                    android:textColor="#777777"
-                    android:textSize="14sp" />
-            </LinearLayout>
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/calorie_progress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_marginTop="12dp"
-            android:progress="62"
-            android:max="100"
-            android:progressTint="#D7263D"
-            android:progressBackgroundTint="#E0E0E0"
-            android:indeterminate="false"
-            android:scaleY="1.5" />
 
-        <TextView
-            android:id="@+id/progress_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="62% of daily goal"
-            android:textColor="#777777"
-            android:textSize="13sp"
-            android:layout_marginTop="6dp" />
+
+
     </LinearLayout>
 
     <!-- Search Bar -->
@@ -145,26 +98,7 @@
         android:paddingEnd="12dp"
         android:background="@drawable/search_bg">
 
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_search"
-            android:contentDescription="Search"
-            android:tint="#AAAAAA" />
 
-        <EditText
-            android:id="@+id/search_food"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:hint="Search for food items..."
-            android:background="@android:color/transparent"
-            android:textColor="#000000"
-            android:textColorHint="#AAAAAA"
-            android:textSize="15sp"
-            android:padding="0dp"
-            android:inputType="text" />
     </LinearLayout>
 
     <!-- Scrollable Content -->
@@ -253,6 +187,7 @@
                     android:backgroundTint="#D7263D"
                     android:layout_marginTop="12dp" />
             </LinearLayout>
+
 
             <!-- Quick Add Calories -->
             <Button
@@ -402,4 +337,26 @@
                 android:layout_marginTop="2dp" />
         </LinearLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:id="@+id/loading_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculating calories..."
+        android:textColor="#555555"
+        android:textSize="16sp"
+        android:layout_below="@id/progress_loader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 </RelativeLayout>
