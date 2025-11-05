@@ -197,7 +197,10 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         int calper = (int) ((caloriesBurned * 100) / calint);
         percent_cal.setText(calper+"% complete"); // set calories in cards
 
-      
+        sub_sleep.setText(sleep+"hours / 8 hours"); //sleep card
+        int sleepint = Integer.parseInt(sleep);
+        int perofsleep = (int) ((sleepint * 100) / 8);
+        percent_sleep.setText(perofsleep+"% complete");
     }
 
     @Override
