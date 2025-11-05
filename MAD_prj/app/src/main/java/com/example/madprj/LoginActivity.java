@@ -46,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
     public void signin() {
         String email = etEmailObj.getText().toString().trim();
         String password = etPasswordObj.getText().toString().trim();
+        SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
+        SharedPreferences.Editor ed=usersignupdata.edit();
+        ed.putString("email",email);
+        ed.apply();
+
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Enter all fields", Toast.LENGTH_SHORT).show();

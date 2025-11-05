@@ -45,6 +45,9 @@ public class CalorieTrackerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calorie_tracker);
         calorie_eaten=findViewById(R.id.calorie_eaten);
 
+        SharedPreferences caleatensf = getSharedPreferences("cal_consumed", MODE_PRIVATE);
+        calorie_eaten.setText(caleatensf.getString("cal_consumed", "0 kcal consumed"));
+
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String email = usersignupdata.getString("email", ""); //for storing in the db
 
@@ -62,6 +65,11 @@ public class CalorieTrackerActivity extends AppCompatActivity {
                 cal_consumed+=Integer.parseInt(ai_response_cleaned);
                 Toast.makeText(this, "Calories added", Toast.LENGTH_SHORT).show();
                 calorie_eaten.setText(cal_consumed+" kcal consumed");
+
+                SharedPreferences.Editor editor = caleatensf.edit();
+                editor.putString("cal_consumed", String.valueOf(cal_consumed));
+                editor.apply();
+
                 storeindb(email,cal_intake_db);
             });
             abd.setNegativeButton("No", (dialog, which) -> {
@@ -124,7 +132,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
         try {
             // ✅ Use 10.0.2.2 for Android Emulator.
             // If you're using a real phone, replace with your Mac's IP (e.g., 192.168.x.x)
-            URL url = new URL("http://10.0.2.2:5001/api/generate");
+            URL url = new URL("https://9rp3msd0-5001.inc1.devtunnels.ms/api/generate");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
