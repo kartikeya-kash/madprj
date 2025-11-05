@@ -1,6 +1,7 @@
 package com.example.madprj;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class WaterTrackerActivity extends AppCompatActivity {
 
     // Declare UI elements
+
     private TextView tvGlasses, tvEncourage, tvRemaining;
     private ProgressBar progressBar;
     private Button btnAddGlass, btnMinus;
-    private ImageView[] waterDrops = new ImageView[8];
-    private int glassesDrunk = 1; // Start from 1 glass
+
+    private int glassesDrunk = 0; // Start from 1 glass
     private final int TOTAL_GLASSES = 8;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +40,13 @@ public class WaterTrackerActivity extends AppCompatActivity {
         btnAddGlass = findViewById(R.id.btn_add_glass);
         btnMinus = findViewById(R.id.btn_minus);
 
-        // Link each ImageView (water drop)
-        waterDrops[0] = findViewById(R.id.Waterdrop1);
-        waterDrops[1] = findViewById(R.id.Waterdrop2);
-        waterDrops[2] = findViewById(R.id.Waterdrop3);
-        waterDrops[3] = findViewById(R.id.Waterdrop4);
-        waterDrops[4] = findViewById(R.id.Waterdrop5);
-        waterDrops[5] = findViewById(R.id.Waterdrop6);
-        waterDrops[6] = findViewById(R.id.Waterdrop7);
-        waterDrops[7] = findViewById(R.id.Waterdrop8);
+        SharedPreferences waterdrunk = getSharedPreferences("waterdrunk", MODE_PRIVATE);
+         editor = waterdrunk.edit();
+        editor.putInt("waterdrunk", glassesDrunk);
+        editor.apply();
+
+
+
 
         // Toolbar Back button
         ImageView backBtn = findViewById(R.id.back_button);
@@ -110,14 +111,9 @@ public class WaterTrackerActivity extends AppCompatActivity {
             tvEncourage.setText("Time to drink your first glass 💦");
         }
 
-        // Update water drops (filled / empty)
-        for (int i = 0; i < TOTAL_GLASSES; i++) {
-            if (waterDrops[i] != null) {
-                waterDrops[i].setColorFilter(
-                        getResources().getColor(i < glassesDrunk ? R.color.blue : R.color.black)
-                );
-            }
-        }
+        editor.putInt("waterdrunk", glassesDrunk);
+
+
     }
 
     // Navigation to other activities

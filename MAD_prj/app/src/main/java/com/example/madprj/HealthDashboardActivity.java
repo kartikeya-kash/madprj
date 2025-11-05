@@ -33,6 +33,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private Sensor stepSensor;
     private boolean isSensorPresent = false;
     String weight,height,calories,water,sleep,steps;
+    int watercount=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,9 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
          water = usersignupdata.getString("water_goal", "");
          sleep = usersignupdata.getString("sleep_goal", "");
          steps = usersignupdata.getString("steps_goal", "");
+
+        SharedPreferences waterdrunk = getSharedPreferences("waterdrunk", MODE_PRIVATE);
+        watercount = waterdrunk.getInt("waterdrunk",0);
 
         summary_steps_value_obj = findViewById(R.id.summary_steps_value);
         summary_cal_value_obj = findViewById(R.id.summary_cal_value);
@@ -204,7 +208,8 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         int perofsleep = (int) ((sleepint * 100) / 8);
         percent_sleep.setText(perofsleep+"% complete");
 
-        int watercount=1;
+        //water card
+
 
         int waterint = Integer.parseInt(water);
         sub_water.setText( watercount+" glass / "+ (waterint*4)/1000 +" glasses"); //water card
