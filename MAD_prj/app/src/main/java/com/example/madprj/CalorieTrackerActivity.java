@@ -2,6 +2,8 @@ package com.example.madprj;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,15 +19,17 @@ import java.util.Scanner;
 public class CalorieTrackerActivity extends AppCompatActivity {
 
     String ai_rule, user_promt, ai_response;
+    EditText etMealNameobj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_calorie_tracker);
+        etMealNameobj=findViewById(R.id.etMealName);
 
         // Example input
-        user_promt = "2 banana";
+        user_promt = etMealNameobj.getText().toString();
 
         ai_rule = "reply only with a number (no text). How many calories in "+user_promt+"? Only number output like 250.";
 
