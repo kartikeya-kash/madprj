@@ -1,22 +1,43 @@
 package com.example.madprj;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HealthDashboardActivity extends AppCompatActivity {
+public class HealthDashboardActivity extends AppCompatActivity implements SensorEventListener {
+
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
     private LinearLayout cardCalories, cardWater, cardSleep, cardExercise, cardVitals, cardReports;
-    private Button btnLogWater, btnAddMeal;  // ✅ Add these buttons
+    private Button btnLogWater, btnAddMeal;
+    TextView summary_steps_value_obj;
+
+    // ✅ Global variable to store user steps
+    public static int userTotalSteps = 0;
+
+    // ✅ Sensor components
+    private SensorManager sensorManager;
+    private Sensor stepSensor;
+    private boolean isSensorPresent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_health_dashboard);
+        summary_steps_value_obj = findViewById(R.id.summary_steps_value);
+
 
         // ------------------- NAVBAR ------------------- //
         navHome = findViewById(R.id.nav_home);
@@ -36,6 +57,22 @@ public class HealthDashboardActivity extends AppCompatActivity {
         // ------------------- QUICK ACTION BUTTONS ------------------- //
         btnLogWater = findViewById(R.id.btn_log_water);
         btnAddMeal = findViewById(R.id.btn_add_meal);
+
+        // ✅ Initialize step counter sensor
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if (sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isSensorPresent = true;
+        } else {
+            isSensorPresent = false;
+        }
+
+        // ✅ Request permission for activity recognition (Android 10+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 1);
+            }
+        }
 
         // ------------------- NAVBAR NAVIGATION ------------------- //
         navHome.setOnClickListener(v ->
@@ -94,4 +131,32 @@ public class HealthDashboardActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    // ✅ Start listening to the step sensor
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isSensorPresent) {
+            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    // ✅ Stop listening when not in use
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isSensorPresent) {
+            sensorManager.unregisterListener(this);
+        }
+    }
+
+    // ✅ Update global step variable whenever sensor changes
+    @Override
+    public void onSensorChanged(android.hardware.SensorEvent event) {
+        userTotalSteps = (int) event.values[0];
+        summary_steps_value_obj.setText(String.valueOf(userTotalSteps));
+    }
+
+    @Override
+    public void onAccuracyChanged(android.hardware.Sensor sensor, int accuracy) {}
 }
