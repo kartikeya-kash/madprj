@@ -1,6 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal"
+    android:background="@drawable/rounded_button_white"
+    android:padding="10dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center_vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_exercise_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Exercise Name"
+        android:textSize="15sp"
+        android:textColor="#0B2B2A"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tv_exercise_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 mins • 200 cal"
+            android:textSize="13sp"
+            android:textColor="#555" />
+
+        <TextView
+            android:id="@+id/tv_exercise_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="07:00 AM"
+            android:textSize="12sp"
+            android:textColor="#8C8C8C"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_exercise_tag"
+        android:layout_width="70dp"
+        android:layout_height="28dp"
+        android:text="Custom"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_tag_gray"
+        android:textSize="12sp"
+        android:textColor="#333" />
+</LinearLayout>

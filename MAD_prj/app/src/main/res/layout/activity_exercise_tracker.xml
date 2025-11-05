@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_exercise"
+    tools:context=".ExerciseTrackerActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F7F6"
-    android:fitsSystemWindows="true">
+    android:background="#F2F7F6">
 
     <!-- Scrollable Content area (above bottom nav) -->
     <ScrollView
@@ -92,7 +93,7 @@
                             android:id="@+id/tv_steps_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="8,543"
+                            android:text="0"
                             android:textSize="22sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF" />
@@ -170,99 +171,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
-                <!-- Steps Goal card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp"
-                    android:background="@drawable/rounded_button_white"
-                    android:layout_marginEnd="6dp">
 
-                    <TextView
-                        android:id="@+id/tv_steps_goal_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Steps Goal"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2B2A" />
-
-                    <TextView
-                        android:id="@+id/tv_steps_goal_values"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8,543  / 10,000"
-                        android:layout_marginTop="6dp"
-                        android:textSize="13sp"
-                        android:textColor="#3B3B3B" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:progress="85"
-                        android:layout_marginTop="8dp"
-                        android:progressTint="#2ECC71"
-                        android:indeterminate="false" />
-
-                    <TextView
-                        android:id="@+id/tv_steps_complete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="85% complete"
-                        android:textSize="12sp"
-                        android:textColor="#767676"
-                        android:layout_marginTop="6dp" />
-                </LinearLayout>
-
-                <!-- Active Time card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp"
-                    android:background="@drawable/rounded_button_white"
-                    android:layout_marginStart="6dp">
-
-                    <TextView
-                        android:id="@+id/tv_active_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Active Time"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2B2A" />
-
-                    <TextView
-                        android:id="@+id/tv_active_values"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="25m / 30m"
-                        android:layout_marginTop="6dp"
-                        android:textSize="13sp"
-                        android:textColor="#3B3B3B" />
-
-                    <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:progress="83"
-                        android:layout_marginTop="8dp"
-                        android:progressTint="#2ECC71"
-                        android:indeterminate="false" />
-
-                    <TextView
-                        android:id="@+id/tv_active_complete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="83% complete"
-                        android:textSize="12sp"
-                        android:textColor="#767676"
-                        android:layout_marginTop="6dp" />
-                </LinearLayout>
             </LinearLayout>
 
             <!-- Today's Workouts -->
@@ -305,113 +214,13 @@
 
                 <!-- Workout items -->
                 <LinearLayout
+                    android:id="@+id/workouts_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="12dp">
 
-                    <!-- Morning Run -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/rounded_button_white"
-                        android:padding="10dp"
-                        android:gravity="center_vertical">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Morning Run"
-                            android:textSize="15sp"
-                            android:textColor="#0B2B2A"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="30 mins  • 280 cal"
-                                android:textSize="13sp"
-                                android:textColor="#555" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="07:00 AM"
-                                android:textSize="12sp"
-                                android:textColor="#8C8C8C"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="72dp"
-                            android:layout_height="28dp"
-                            android:text="Running"
-                            android:gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/bg_tag_gray"
-                            android:textSize="12sp"
-                            android:textColor="#333" />
-                    </LinearLayout>
-
-                    <!-- Yoga Session -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/rounded_button_white"
-                        android:padding="10dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="Yoga Session"
-                            android:textSize="15sp"
-                            android:textColor="#0B2B2A"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="45 mins  • 120 cal"
-                                android:textSize="13sp"
-                                android:textColor="#555" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="06:00 PM"
-                                android:textSize="12sp"
-                                android:textColor="#8C8C8C"
-                                android:layout_marginTop="4dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="56dp"
-                            android:layout_height="28dp"
-                            android:text="Yoga"
-                            android:gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/bg_tag_gray"
-                            android:textSize="12sp"
-                            android:textColor="#333" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -427,7 +236,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="▶ Quick Start"
+                    android:text="▶️ Quick Start"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#0B2B2A" />
@@ -545,39 +354,6 @@
                             android:textColor="#6D6D6D" />
                     </LinearLayout>
                 </GridLayout>
-            </LinearLayout>
-
-            <!-- Weekly Goals -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/white_card_bg"
-                android:padding="14dp"
-                android:layout_marginTop="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎯 Weekly Goals"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#0B2B2A" />
-
-                <!-- Placeholder graph image (replace with chart when needed) -->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="10dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Goals achieved this week: 3/7"
-                    android:textSize="13sp"
-                    android:textColor="#6D6D6D"
-                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
             <!-- Fitness Tips -->
