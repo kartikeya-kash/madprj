@@ -22,7 +22,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
     private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
     private LinearLayout cardCalories, cardWater, cardSleep, cardExercise, cardVitals, cardReports;
     private Button btnLogWater, btnAddMeal;
-    TextView summary_steps_value_obj,summary_cal_value_obj,sub_cal_obj,percent_cal,sub_sleep,percent_sleep;
+    TextView summary_steps_value_obj,summary_cal_value_obj,sub_cal_obj,percent_cal,sub_sleep,percent_sleep,sub_water,percent_water;
     float caloriesBurned;
 
     // ✅ Global variable to store user steps
@@ -55,6 +55,8 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         percent_cal=findViewById(R.id.percent_cal);
         sub_sleep=findViewById(R.id.sub_sleep);
         percent_sleep=findViewById(R.id.percent_sleep);
+        sub_water=findViewById(R.id.sub_water);
+        percent_water=findViewById(R.id.percent_water);
 
 
         // ------------------- NAVBAR ------------------- //
@@ -201,7 +203,17 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         int sleepint = Integer.parseInt(sleep);
         int perofsleep = (int) ((sleepint * 100) / 8);
         percent_sleep.setText(perofsleep+"% complete");
+
+        int watercount=1;
+
+        int waterint = Integer.parseInt(water);
+        sub_water.setText( watercount+" glass / "+ (waterint*4)/1000 +" glasses"); //water card
+        int perofwater = (int) ((watercount * 100) / ((waterint/1000)*4));
+        percent_water.setText(perofwater+"% complete");
+
+
     }
+
 
     @Override
     public void onAccuracyChanged(android.hardware.Sensor sensor, int accuracy) {}
