@@ -48,10 +48,11 @@ public class CalorieTrackerActivity extends AppCompatActivity {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            // You can replace "llama3" with your model name
+            // Include "stream": false to get one single JSON object
             String body = new JSONObject()
                     .put("model", "llama3.2:3b")
                     .put("prompt", prompt)
+                    .put("stream", false)
                     .toString();
 
             try (OutputStream os = connection.getOutputStream()) {
@@ -66,16 +67,9 @@ public class CalorieTrackerActivity extends AppCompatActivity {
             }
             scanner.close();
 
-            // Ollama returns multiple JSON lines, so extract only the "response" part
-            String fullResponse = response.toString();
-            int index = fullResponse.lastIndexOf("\"response\":\"");
-            if (index != -1) {
-                String result = fullResponse.substring(index + 12);
-                result = result.split("\"")[0];
-                return result.trim();
-            } else {
-                return "No response";
-            }
+            // Parse as JSON
+            JSONObject json = new JSONObject(response.toString());
+            return json.optString("response", "No response").trim();
 
         } catch (Exception e) {
             e.printStackTrace();
