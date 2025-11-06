@@ -163,7 +163,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
         try {
             // ✅ Use 10.0.2.2 for Android Emulator.
             // If you're using a real phone, replace with your Mac's IP (e.g., 192.168.x.x)
-            URL url = new URL("https://9rp3msd0-5001.inc1.devtunnels.ms/api/generate");
+            URL url = new URL("http://10.0.2.2:5001/api/generate");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -203,7 +203,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
     }
 
     public void storeindb(String email, String cal_intake_db) {
-        String url = "https://9rp3msd0-3000.inc1.devtunnels.ms/addCalorieIntake";  // Replace with your Node server IP (e.g., 192.168.1.10)
+        String url = "http://10.0.2.2:3000/addCalorieIntake";  // Replace with your Node server IP (e.g., 192.168.1.10)
 
         try {
             JSONObject postData = new JSONObject();

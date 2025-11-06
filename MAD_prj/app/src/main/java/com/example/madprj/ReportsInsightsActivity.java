@@ -55,7 +55,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
             }
 
             // 🔹 Step 1: Fetch user data from your backend
-            String url = "https://9rp3msd0-3000.inc1.devtunnels.ms/getUserFullData?email=" + email;
+            String url = "http://10.0.2.2:3000/getUserFullData?email=" + email;
 
             JsonObjectRequest request = new JsonObjectRequest(
                     Request.Method.GET,
@@ -147,7 +147,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
     // 🔹 Async Ollama AI call using Volley (no blocking)
     private void callOllamaAI(String prompt) {
         try {
-            String url = "https://9rp3msd0-5001.inc1.devtunnels.ms/api/generate";
+            String url = "http://10.0.2.2:5001/api/generate";
 
             JSONObject body = new JSONObject();
             body.put("model", "llama3.2:3b"); // your main model
@@ -200,7 +200,7 @@ public class ReportsInsightsActivity extends AppCompatActivity {
                     };
 
             request.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
-                    30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                    90000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
             ));
 
             Volley.newRequestQueue(getApplicationContext()).add(request);

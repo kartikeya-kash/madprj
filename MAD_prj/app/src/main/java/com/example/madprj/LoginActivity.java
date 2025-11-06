@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 // Emulator -> Localhost = 10.0.2.2
-                URL url = new URL("https://9rp3msd0-3000.inc1.devtunnels.ms/login"); //http://10.0.2.2:3000/login
+                URL url = new URL("http://10.0.2.2:3000/login"); //http://10.0.2.2:3000/login
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
 
