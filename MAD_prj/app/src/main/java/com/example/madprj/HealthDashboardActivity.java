@@ -41,6 +41,7 @@ public class HealthDashboardActivity extends AppCompatActivity implements Sensor
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_health_dashboard);
 
+
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String age = usersignupdata.getString("age", "");
          weight = usersignupdata.getString("weight", "");

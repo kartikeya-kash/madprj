@@ -4,7 +4,9 @@
     android:padding="16dp"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    >
 
     <EditText
         android:id="@+id/et_exercise_name"

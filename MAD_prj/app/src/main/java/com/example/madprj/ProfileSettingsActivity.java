@@ -34,6 +34,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         signoutbtnobj = findViewById(R.id.signoutbtn);
         signoutbtnobj.setOnClickListener(v->out());
 
+
         shownameobj = findViewById(R.id.showname);
         showemailobj = findViewById(R.id.showemail);
         showbmiobj = findViewById(R.id.showbmi);
@@ -113,6 +114,33 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 allergies = user.optString("MI_Allergies", "");
                 medicalCondition = user.optString("MI_MedicalCondition", "");
                 double BMI = weight / ((height / 100) * (height / 100));
+
+                // ------------------- NAVBAR ------------------- //
+                navHome = findViewById(R.id.nav_home);
+                navActivity = findViewById(R.id.nav_activity);
+                navReports = findViewById(R.id.nav_reports);
+                navSOS = findViewById(R.id.nav_sos);
+                navProfile = findViewById(R.id.nav_profile);
+
+                navHome.setOnClickListener(v ->
+                        startActivity(new Intent(this, HealthDashboardActivity.class))
+                );
+
+                navActivity.setOnClickListener(v ->
+                        startActivity(new Intent(this, ExerciseTrackerActivity.class))
+                );
+
+                navReports.setOnClickListener(v ->
+                        startActivity(new Intent(this, ReportsInsightsActivity.class))
+                );
+
+                navSOS.setOnClickListener(v ->
+                        startActivity(new Intent(this, EmergencyActivity.class))
+                );
+
+                navProfile.setOnClickListener(v ->
+                        startActivity(new Intent(this, ProfileSettingsActivity.class))
+                );
 
 
                 // ✅ Save data locally for other activities

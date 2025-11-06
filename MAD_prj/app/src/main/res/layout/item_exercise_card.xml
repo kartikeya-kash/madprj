@@ -5,7 +5,9 @@
     android:background="@drawable/rounded_button_white"
     android:padding="10dp"
     android:layout_marginTop="10dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:fitsSystemWindows="true"
+    >
 
     <TextView
         android:id="@+id/tv_exercise_name"

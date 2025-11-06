@@ -82,43 +82,11 @@
                 android:layout_marginBottom="24dp" />
 
             <!-- Divider Text -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Or continue with"
-                android:textAlignment="center"
-                android:textColor="#7A7F87"
-                android:layout_marginBottom="16dp" />
 
-            <Button
-                android:id="@+id/btnGoogle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Continue with Google"
-                android:background="@android:color/transparent"
-                android:textColor="#000000"
-                android:drawableStart="@drawable/ic_google"
-                android:drawablePadding="8dp"
-                android:drawableTint="#000000"
-                android:textAllCaps="false"
-                android:layout_marginBottom="12dp"
-                android:elevation="0dp"
-                android:stateListAnimator="@null" />
 
-            <Button
-                android:id="@+id/btnOTP"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Continue with OTP"
-                android:background="@android:color/transparent"
-                android:textColor="#000000"
-                android:drawableStart="@drawable/ic_shield"
-                android:drawableTint="#000000"
-                android:drawablePadding="8dp"
-                android:textAllCaps="false"
-                android:layout_marginBottom="20dp"
-                android:elevation="0dp"
-                android:stateListAnimator="@null" />
+
+
+
 
             <!-- Sign up -->
 
@@ -140,19 +108,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnSkip"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Skip for now"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:background="@drawable/btn_bg"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:stateListAnimator="@null"
-            android:elevation="4dp"
-            android:layout_marginBottom="24dp" />
 
     </LinearLayout>
 </ScrollView>

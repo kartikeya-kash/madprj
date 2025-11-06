@@ -2,11 +2,14 @@ package com.example.madprj;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +23,8 @@ public class ExerciseTrackerActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
     private static final String PREFS_NAME = "ExercisePrefs";
+    private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
+
     private static final String KEY_EXERCISES = "exercise_list";
     private static final String KEY_TOTAL_CAL = "total_calories";
     private static final String KEY_TOTAL_MIN = "total_minutes";
@@ -33,6 +38,7 @@ public class ExerciseTrackerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_tracker);
+        EdgeToEdge.enable(this);
 
         // Initialize UI
         workoutsContainer = findViewById(R.id.workouts_container);
@@ -42,6 +48,33 @@ public class ExerciseTrackerActivity extends AppCompatActivity {
         tvStepsValue = findViewById(R.id.tv_steps_value);
 
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        // ------------------- NAVBAR ------------------- //
+        navHome = findViewById(R.id.nav_home);
+        navActivity = findViewById(R.id.nav_activity);
+        navReports = findViewById(R.id.nav_reports);
+        navSOS = findViewById(R.id.nav_sos);
+        navProfile = findViewById(R.id.nav_profile);
+
+        navHome.setOnClickListener(v ->
+                startActivity(new Intent(this, HealthDashboardActivity.class))
+        );
+
+        navActivity.setOnClickListener(v ->
+                startActivity(new Intent(this, ExerciseTrackerActivity.class))
+        );
+
+        navReports.setOnClickListener(v ->
+                startActivity(new Intent(this, ReportsInsightsActivity.class))
+        );
+
+        navSOS.setOnClickListener(v ->
+                startActivity(new Intent(this, EmergencyActivity.class))
+        );
+
+        navProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileSettingsActivity.class))
+        );
+
 
         // Load saved data
         loadExercises();

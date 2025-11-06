@@ -1,5 +1,6 @@
 package com.example.madprj;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class CalorieTrackerActivity extends AppCompatActivity {
     TextView loadingMessage,calorie_eaten;
     String ai_response_cleaned;
     String cal_intake_db;
+    private LinearLayout navHome, navActivity, navReports, navSOS, navProfile;
     int cal_consumed=0;
 
     @Override
@@ -50,6 +53,34 @@ public class CalorieTrackerActivity extends AppCompatActivity {
 
         SharedPreferences usersignupdata = getSharedPreferences("usersignupdata", MODE_PRIVATE);
         String email = usersignupdata.getString("email", ""); //for storing in the db
+
+        // ------------------- NAVBAR ------------------- //
+        navHome = findViewById(R.id.nav_home);
+        navActivity = findViewById(R.id.nav_activity);
+        navReports = findViewById(R.id.nav_reports);
+        navSOS = findViewById(R.id.nav_sos);
+        navProfile = findViewById(R.id.nav_profile);
+
+        navHome.setOnClickListener(v ->
+                startActivity(new Intent(this, HealthDashboardActivity.class))
+        );
+
+        navActivity.setOnClickListener(v ->
+                startActivity(new Intent(this, ExerciseTrackerActivity.class))
+        );
+
+        navReports.setOnClickListener(v ->
+                startActivity(new Intent(this, ReportsInsightsActivity.class))
+        );
+
+        navSOS.setOnClickListener(v ->
+                startActivity(new Intent(this, EmergencyActivity.class))
+        );
+
+        navProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileSettingsActivity.class))
+        );
+
 
         // UI references
         etMealNameobj = findViewById(R.id.etMealName);

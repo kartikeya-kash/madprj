@@ -24,6 +24,7 @@ public class EmergencyActivity extends AppCompatActivity {
         navSOS = findViewById(R.id.nav_sos);
         navProfile = findViewById(R.id.nav_profile);
 
+
         // Navbar click actions
         navHome.setOnClickListener(v -> {
             startActivity(new Intent(EmergencyActivity.this, HealthDashboardActivity.class));
